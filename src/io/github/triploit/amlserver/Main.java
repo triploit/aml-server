@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.triploit.AML;
 import io.github.triploit.amlserver.settings.Settings;
+import io.github.triploit.parser.Tokenizer;
 
 import java.io.*;
 import java.net.*;
@@ -91,12 +92,70 @@ public class Main
 					{
 						System.out.println("Version: 0.1.1");
 					}
+					else if (input.equalsIgnoreCase("settings.reload"))
+					{
+						String d = "";
+
+						try (BufferedReader br = new BufferedReader(new FileReader(args[0])))
+						{
+							String line;
+							while ((line = br.readLine()) != null)
+							{
+								d += line;
+							}
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+						}
+
+						Gson gson = new GsonBuilder().create();
+						main_settings = gson.fromJson(d, Settings.class);
+					}
 				}
 			}
 		});
 
 		t1.start();
 		t2.start();
+	}
+
+	public static String generateCode(String file) throws IOException
+	{
+		System.out.println("Interpreting... " + file);
+
+		if (!(new File(file)).exists() || !(new File(file)).isFile())
+		{
+			System.out.println("Cancelled: File not found or is directory: "+file);
+			throw new IOException("File not found!");
+		}
+
+		String code = AML.readFile(file);
+
+		if (AML.parser.parse(Tokenizer.tokenize(code)) <= 0 || AML.errors <= 0 && AML.warnings <= 0)
+		{
+			code = AML.parser.code;
+			code = code.replace("~\\n~", "\n");
+			code = code.replace("~<br>~", "\n");
+			code = code.replace("~\\t~", "\t");
+			String _of;
+
+			if (AML.errors <= 0 && AML.warnings <= 0)
+			{
+				System.out.println("Finished! No errors!");
+				return code;
+			}
+			else
+			{
+				System.out.println("Interpreting of " + file + " cancelled with " + AML.errors + " errors and " + AML.warnings + " warnings.");
+				return ERROR+"<br>Error in File: " + file;
+			}
+		}
+		else
+		{
+			System.out.println("Interpreting of " + file + " cancelled with " + AML.errors + " errors and " + AML.warnings + " warnings.");
+			return ERROR+"<br>Error in File: " + file;
+		}
 	}
 
 	public static void server()
@@ -125,49 +184,44 @@ public class Main
 							{
 								String path = line.substring(4, line.length()-8);
 								path = settings.source_dir + path;
-
-								path = path.replace("//", "/");
-								path = path.replace(".html", ".aml").trim();
-
+								path = path.replace("//", "/").trim();
 								System.out.println("!!!!!! PATH: "+path);
 
-								AML.compileFile(path);
-								AML.errors = 0;
-
-								String _data = "";
-								to_delete.add(path.replace(".aml", ".html"));
-
-								try (BufferedReader br = new BufferedReader(new FileReader(path.replace(".aml", ".html"))))
+								if ((!path.toLowerCase().contains(".aml")
+										|| !path.toLowerCase().endsWith(".aml"))
+										&& !path.endsWith("/")
+										&& !path.endsWith(".html")
+										&& !path.endsWith(".xhtml")
+										&& !path.endsWith(".htm"))
 								{
-									String l;
-									while ((l = br.readLine()) != null)
-									{
-										_data += l;
-									}
+									responseBody = "<code>"+AML.readFile(path)+"</code>";
+									continue;
+								}
+								else if (path.endsWith(".html") || path.endsWith(".htm") || path.endsWith(".xhtml"))
+								{
+									System.out.println(2);
+									responseBody = AML.readFile(path);
+									continue;
+								}
 
-									responseBody = _data;
+								try
+								{
+									responseBody = generateCode(path);
 								}
 								catch (IOException e)
 								{
 									if (path.equals(settings.source_dir))
 									{
-										_data = "";
-										path = path + "index.html";
+										String _data = "";
+										path = path + "index.aml";
 
-										path = path.replace("//", "/");
-										path = path.replace(".html", ".aml").trim();
-
-										System.out.println("!!!!!! PATH: "+path);
-
-										AML.compileFile(path);
-										AML.errors = 0;
-										to_delete.add(path.replace(".aml", ".html"));
-
-										BufferedReader br = new BufferedReader(new FileReader(path.replace(".aml", ".html")));
-										String l;
-										while ((l = br.readLine()) != null)
+										try
 										{
-											_data += l;
+											_data = generateCode(path);
+										}
+										catch (IOException ex)
+										{
+											_data = ERROR+"<br>File index.aml not found!";
 										}
 
 										responseBody = _data;
