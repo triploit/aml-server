@@ -87,6 +87,10 @@ public class Main
 					{
 						System.out.println("SETTINGS.SOURCE_DIR: "+main_settings.source_dir);
 					}
+					else if (input.equalsIgnoreCase("version"))
+					{
+						System.out.println("Version: 0.1.1");
+					}
 				}
 			}
 		});
