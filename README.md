@@ -13,7 +13,7 @@ sudo secpm install aml-server
 
 ### Server aufsetzen
 
-Wenn du eine Website hast, die du komplett in AML geschrieben hast und einen eigenen Server dafür aufsetzen willst, musst du nicht Apache etc. verwenden und die ganzen Dateien kompilieren. Du kannst die direkten AML-Dateien (die, wenn sie als Referenz in Links wie `<a href="test.html">Test</a>` angegeben sind, um nach dem Kompilieren zu funktionieren, in `<a href="test.aml>Test</a>"` geändert werden müssen) verwenden.
+Wenn du eine Website hast, die du komplett in AML geschrieben hast und einen eigenen Server dafür aufsetzen willst, musst du nicht Apache etc. verwenden und die ganzen Dateien kompilieren. Du kannst die direkten AML-Dateien (die, wenn sie als Referenz in Links wie `a (href: "test.html") { "Test" }` angegeben sind, um nach dem Kompilieren zu funktionieren, in `a ( href: "test.aml") { "Test" }` geändert werden müssen) verwenden.
 
 Lege dazu einen Source-Ordner an, wie zum Beispiel:
 
