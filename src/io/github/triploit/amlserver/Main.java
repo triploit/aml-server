@@ -122,6 +122,10 @@ public class Main
 
 	public static String generateCode(String file) throws IOException
 	{
+		AML.line = 1;
+		AML.errors = 0;
+		AML.warnings = 0;
+
 		System.out.println("Interpreting... " + file);
 
 		if (!(new File(file)).exists() || !(new File(file)).isFile())
@@ -199,7 +203,6 @@ public class Main
 								}
 								else if (path.endsWith(".html") || path.endsWith(".htm") || path.endsWith(".xhtml"))
 								{
-									System.out.println(2);
 									responseBody = AML.readFile(path);
 									continue;
 								}
