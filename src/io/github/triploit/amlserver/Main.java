@@ -27,7 +27,7 @@ public class Main
 
 		if (args.length < 1)
 		{
-			System.out.println("Error: Give me the settings file!");
+			System.out.println("Error: Give me the settings file! ("+args.length+")");
 			System.exit(0);
 		}
 

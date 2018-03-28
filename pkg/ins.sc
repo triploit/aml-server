@@ -2,8 +2,8 @@ func install {
 	sudo make all
 	sudo chmod +x aml_server
 
-	sudo mv aml_server.jar /usr/bin/AML_server.jar
-	sudo mv aml_server /usr/bin/aml_server
+	sudo cp aml_server.jar /usr/bin/AML_server.jar
+	sudo cp aml_server /usr/bin/aml_server
 
 	sudo rm -rf od
 	sudo rm -rf tmp

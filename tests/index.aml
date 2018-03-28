@@ -1,0 +1,16 @@
+html {
+	head {
+		style {
+			.farbig {
+				font-size: 26px;
+				color: green;
+			}
+		}
+	}
+
+	body {
+		div (class: "farbig") {
+			"Hallo Welt!"
+		}
+	}
+}
