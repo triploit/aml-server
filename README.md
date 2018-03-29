@@ -5,7 +5,7 @@
 
 ### Installation
 
-Dies ist ein Server für [AML](https://github.com/triploit/aml). Um den Server aufzusetzen, kann er erstmal mit [SecundoPM](https://github.com/triploit/aml) installiert werden:
+Dies ist ein Server für [AML](https://github.com/triploit/aml). Um den Server aufzusetzen, kann er erstmal mit [SecundoPM](https://github.com/triploit/secundo-pm) installiert werden:
 
 ```bash
 sudo secpm install aml-server
@@ -39,7 +39,7 @@ Wichtig ist beim Port 80, dass der Server dann als root gestartet werden muss. B
 ## ENG - English manual
 ### Installation
 
-This is a server for [AML](https://github.com/triploit/aml). To set up this server, you can install it with [SecundoPM](https://github.com/triploit/aml):
+This is a server for [AML](https://github.com/triploit/aml). To set up this server, you can install it with [SecundoPM](https://github.com/triploit/secundo-pm):
 
 ```bash
 sudo secpm install aml-server
