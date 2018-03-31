@@ -70,4 +70,4 @@ This have to be passed as an argument:
 $ aml_server settings.json
 ```
 
-It's important that, if you use the port 80, that `aml_server` must be runned as root.
+It's important that, if you use the port 80, that `aml_server` must be run as root.
