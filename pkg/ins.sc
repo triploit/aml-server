@@ -1,3 +1,8 @@
+user triploit
+name aml-server
+ver 0.0.0.1
+dep triploit aml 0.1.4.0
+
 func install {
 	sudo make all
 	sudo chmod +x aml_server
