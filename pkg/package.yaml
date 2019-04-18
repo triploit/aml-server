@@ -1,0 +1,20 @@
+name: "AML Server"
+version: "0.1.1a"
+description: "A little server for AML."
+information: >
+    "Its a little server for the AML-Markup-Language (https://github.com/triploit/aml). Read
+    the readme.md for more information and an detailed guide."
+
+authors:
+    - survari
+
+dependencies:
+    - "triploit:aml@github.com"
+
+products:
+    - ./aml_server.jar: "/usr/bin/AML_server.jar"
+    - ./aml_server: "/usr/bin/aml_server"
+
+gituser: triploit
+server: github.com
+reponame: aml-server
