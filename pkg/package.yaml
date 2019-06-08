@@ -1,5 +1,5 @@
 name: "AML Server"
-version: "0.1.1a"
+version: "0.1.1"
 description: "A little server for AML."
 information: >
     "Its a little server for the AML-Markup-Language (https://github.com/triploit/aml). Read
